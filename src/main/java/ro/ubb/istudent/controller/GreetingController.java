@@ -12,4 +12,9 @@ public class GreetingController {
         return "index";
     }
 
+    @RequestMapping(value = "/courses", method = RequestMethod.GET)
+    public String courses() {
+        return "courses";
+    }
+
 }

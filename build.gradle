@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.7.RELEASE'
+        springBootVersion = "1.5.7.RELEASE"
     }
     repositories {
         mavenLocal()
@@ -13,30 +13,30 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+        classpath "org.junit.platform:junit-platform-gradle-plugin:1.0.0"
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'war'
-apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+apply plugin: "war"
+apply plugin: "org.junit.platform.gradle.plugin"
 
-group = 'ro.ubb'
-version = '0.0.1-SNAPSHOT'
+group = "ro.ubb"
+version = "0.0.1-SNAPSHOT"
 sourceCompatibility = 1.8
 
 repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-    maven { url 'http://repo.spring.io/milestone' }
-    maven { url 'http://repo.spring.io/snapshot' }
-    maven { url 'https://repository.jboss.org/nexus/content/repositories/releases' }
-    maven { url 'https://oss.sonatype.org/content/repositories/releases' }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-    maven { url 'http://repo.maven.apache.org/maven2' }
-    maven { url 'https://jitpack.io' }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://jitpack.io" }
 }
 
 configurations {
@@ -44,16 +44,16 @@ configurations {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
-    compile group: 'com.rabbitmq', name: 'amqp-client', version: '5.0.0'
+    compile group: "com.rabbitmq", name: "amqp-client", version: "5.0.0"
 
-    runtime('com.h2database:h2')
-    runtime('mysql:mysql-connector-java')
-    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    runtime("com.h2database:h2")
+    runtime("mysql:mysql-connector-java")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 
     // jUnit 5
     testCompile("org.junit.jupiter:junit-jupiter-api:5.0.1")
@@ -63,18 +63,22 @@ dependencies {
 }
 
 junitPlatform {
-    // platformVersion '1.0.0'
+    // platformVersion "1.0.0"
     filters {
         engines {
-            include 'junit-jupiter'
+            include "junit-jupiter"
         }
 
         tags {
-            // include 'fast'
-            // exclude 'slow'
+            // include "fast"
+            // exclude "slow"
         }
-        includeClassNamePattern '.*Test'
+        includeClassNamePattern ".*Test"
     }
     enableStandardTestTask false
     reportsDir = file("$buildDir/test-results/test")
+}
+tasks.withType(Test) {
+    scanForTestClasses = false
+    include "**/*Test.class" // whatever Ant pattern matches your test class files
 }
